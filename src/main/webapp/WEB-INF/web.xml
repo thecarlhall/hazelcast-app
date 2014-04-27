@@ -7,12 +7,6 @@
     <servlet>
         <servlet-name>HazelcastServlet</servlet-name>
         <servlet-class>thecarlhall.hazelcast.web.HazelcastServlet</servlet-class>
-        <!--
-        <init-param>
-            <param-name>servers</param-name>
-            <param-value>127.0.0.1:5701</param-value>
-        </init-param>
-        -->
     </servlet>
     <servlet-mapping>
         <servlet-name>HazelcastServlet</servlet-name>
