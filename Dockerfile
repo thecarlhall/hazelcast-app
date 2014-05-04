@@ -2,12 +2,10 @@ FROM ubuntu:14.04
 
 MAINTAINER thecarlhall
 
-RUN apt-get -y install jetty8
-RUN sed -i "s/NO_START=1/NO_START=0/" /etc/default/jetty8
-RUN sed -i "s/#JETTY_HOST=\$(uname -n)/JETTY_HOST=0.0.0.0/" /etc/default/jetty8
-ADD target/hazelcast-app.war /var/lib/jetty8/webapps/
+RUN apt-get -y install openjdk-7-jre-headless curl
+RUN mkdir -p /usr/share/tomcat
+RUN curl http://apache.osuosl.org/tomcat/tomcat-8/v8.0.5/bin/apache-tomcat-8.0.5.tar.gz | tar zxf - --strip=1 -C /usr/share/tomcat/
 
-ENTRYPOINT ["/usr/lib/jvm/default-java/bin/java"]
-CMD ["-Xmx256m","-Djava.awt.headless=true","-Djava.io.tmpdir=/var/cache/jetty8/data","-Djava.library.path=/usr/lib","-DSTART=/etc/jetty8/start.config","-Djetty.home=/usr/share/jetty8","-Djetty.logs=/var/log/jetty8","-Djetty.host=0.0.0.0","-Djetty.port=8080","-cp","/usr/share/java/commons-daemon.jar:/usr/share/jetty8/start.jar:/usr/lib/jvm/default-java/lib/tools.jar","org.eclipse.jetty.start.Main","--daemon","/etc/jetty8/jetty-logging.xml","/etc/jetty8/jetty.xml","/etc/jetty8/jetty-shared-webapps.xml"]
+CMD ["/usr/bin/java","-Djava.util.logging.config.file=/usr/share/tomcat/conf/logging.properties","-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager","-Djava.endorsed.dirs=/usr/share/tomcat/endorsed","-classpath","/usr/share/tomcat/bin/bootstrap.jar:/usr/share/tomcat/bin/tomcat-juli.jar","-Dcatalina.base=/usr/share/tomcat","-Dcatalina.home=/usr/share/tomcat","-Djava.io.tmpdir=/usr/share/tomcat/temp","org.apache.catalina.startup.Bootstrap","start"]
 
-EXPOSE 8080
+EXPOSE 8080 5701

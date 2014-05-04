@@ -1,4 +1,10 @@
+.vagrant/
+log/
+user-data
+config.rb
+
+tomcat.tar
+
+hazelcast-app.iml
 .idea
-*.iml
 target
-.vagrant

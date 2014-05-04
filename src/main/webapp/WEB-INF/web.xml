@@ -10,6 +10,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>HazelcastServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 </web-app>
