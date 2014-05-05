@@ -46,11 +46,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define("hazelcast#{i}") do |cfg|
       cfg.vm.network :private_network, ip: "192.168.50.#{i + 10}"
       cfg.vm.network :forwarded_port, guest: 8080, host: 8080 + i
+      cfg.vm.synced_folder "target/hazelcast-app", "/usr/share/tomcat/webapps/hazelcast-app"
       cfg.vm.provision :shell, inline: %Q(
         apt-get -y install openjdk-7-jre-headless
         mkdir -p /usr/share/tomcat
         curl http://apache.osuosl.org/tomcat/tomcat-8/v8.0.5/bin/apache-tomcat-8.0.5.tar.gz | tar zxf - --strip=1 -C /usr/share/tomcat/
-        cp /vagrant/target/hazelcast-app.war /usr/share/tomcat/webapps/
         cp /vagrant/etc/tomcat.conf /etc/init/tomcat.conf
         service tomcat restart
       )
