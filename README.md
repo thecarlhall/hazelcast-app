@@ -22,3 +22,17 @@ I was curious of what a clustered Hazelcast setup looked like, so I built a Java
 ### Docker
 
 `Dockerfile` is used to build a [Docker](https://docker.io) image with Apache Tomcat and bundles the `war` file. I setup the Docker command to attach a volume from the host to install the application. This allows updating the application independently of the container and just requires a container restart to deploy new code.
+
+### Testing
+
+After starting the instances, add data with curl.
+
+```
+curl -d name=what -d value=yeah http://localhost:8081/hazelcast-app/
+```
+
+You can check that the data is copied to the other nodes:
+
+```
+for i in {1..4}; do curl "http://localhost:808$i/hazelcast-app/"; done
+```
