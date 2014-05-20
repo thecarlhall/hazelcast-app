@@ -1,6 +1,9 @@
 <hazelcast xsi:schemaLocation="http://www.hazelcast.com/schema/config hazelcast-basic.xsd"
            xmlns="http://www.hazelcast.com/schema/config"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <properties>
+        <property name="hazelcast.socket.server.bind.any">false</property>
+    </properties>
     <network>
         <port auto-increment="false">5701</port>
         <join>
